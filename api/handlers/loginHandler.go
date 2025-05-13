@@ -5,7 +5,6 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"octolib/api/models"
-	"octolib/api/services"
 	"octolib/db"
 )
 
@@ -41,5 +40,4 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// Возвращаем токен
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{"token": token})
 }
