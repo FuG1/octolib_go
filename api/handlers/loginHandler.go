@@ -37,11 +37,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Генерация JWT-токена
-	token, err := services.GenerateJWT(credentials.Username, credentials.Password, role)
-	if err != nil {
-		http.Error(w, "Error generating token", http.StatusInternalServerError)
-		return
-	}
 
 	// Возвращаем токен
 	w.Header().Set("Content-Type", "application/json")
