@@ -9,9 +9,6 @@ import (
 func SetupRoutes() *chi.Mux {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
-
-	r.Get("/api/hello", handlers.HelloHandler)
-	r.Post("/api/hello", handlers.HelloHandler)
 	r.Post("/api/login", handlers.LoginHandler)
 	r.Post("/api/register", handlers.RegisterHandler)
 
