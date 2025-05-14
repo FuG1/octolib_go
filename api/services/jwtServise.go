@@ -1,12 +1,13 @@
 package services
 
 import (
+	"octolib/db"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
 )
 
-var JwtKey = []byte("#")
+var JwtKey = []byte(db.Jwt)
 
 type Claims struct {
 	ID   int `json:"id"`
