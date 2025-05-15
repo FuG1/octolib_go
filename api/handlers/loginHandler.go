@@ -62,5 +62,4 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	// Ответ клиенту
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{"message": "Login successful"})
 }

@@ -37,7 +37,7 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	user.Password = string(hashedPassword)
 
 	// Сохранение пользователя в базе данных
-	_, err = db.DB.Exec("INSERT INTO users (username, password) VALUES ($1, $2)", user.Username, user.Password)
+	_, err = db.DB.Exec("INSERT INTO users (username, password, role_id) VALUES ($1, $2, $3)", user.Username, user.Password, 1) // 1 - ID роли 'user'
 	if err != nil {
 		http.Error(w, "Error saving user to database", http.StatusInternalServerError)
 		return

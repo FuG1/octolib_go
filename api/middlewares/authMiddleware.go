@@ -15,12 +15,14 @@ const UserContextKey contextKey = "user"
 // AuthMiddleware проверяет JWT-токен
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Извлечение токена из заголовка Authorization
-		tokenString := r.Header.Get("Authorization")
-		if tokenString == "" {
+		// Извлечение токена из куки
+		cookie, err := r.Cookie("jwt_token")
+		if err != nil {
 			http.Error(w, "Authorization token is required", http.StatusUnauthorized)
 			return
 		}
+
+		tokenString := cookie.Value
 
 		// Парсинг токена и проверка подписи
 		claims := &services.Claims{}

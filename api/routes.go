@@ -20,7 +20,7 @@ func SetupRoutes() *chi.Mux {
 	// Группа маршрутов с AuthMiddleware
 	r.Group(func(r chi.Router) {
 		r.Use(customMiddleware.AuthMiddleware)
-		//r.Post("/add-book", handlers.AddBookHandler) // Пример защищённого маршрута
+		r.Post("/api/add_book", handlers.AddBookHandler)
 	})
 
 	return r
