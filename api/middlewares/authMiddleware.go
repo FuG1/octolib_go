@@ -23,6 +23,8 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		}
 		tokenString := cookie.Value
 
+		tokenString := cookie.Value
+
 		// Парсинг токена и проверка подписи
 		claims := &services.Claims{}
 		token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
