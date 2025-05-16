@@ -10,7 +10,7 @@ var DB *sql.DB
 
 func InitDB() error {
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
+		Host, Port, User, Password, Dbname)
 
 	var err error
 	DB, err = sql.Open("postgres", connStr)

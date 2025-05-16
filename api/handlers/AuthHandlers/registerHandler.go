@@ -1,4 +1,4 @@
-package handlers
+package AuthHandlers
 
 import (
 	"encoding/json"
