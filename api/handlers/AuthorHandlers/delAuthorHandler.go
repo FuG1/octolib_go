@@ -51,7 +51,6 @@ func DelAuthorHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Удаление автора из базы данных
 	_, err = db.DB.Exec("DELETE FROM authors WHERE id = $1", authorID)
 	if err != nil {
 		log.Printf("Error deleting author from database: %v", err)

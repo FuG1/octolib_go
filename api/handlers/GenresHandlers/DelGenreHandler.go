@@ -48,7 +48,6 @@ func DeleteGenreHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Удаляем книги, связанные с жанром
 	_, err = db.DB.Exec("DELETE FROM books WHERE genre_id = $1", genreID)
 	if err != nil {
 		log.Printf("Error deleting books from database: %v", err)
@@ -56,7 +55,6 @@ func DeleteGenreHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Удаляем жанр
 	_, err = db.DB.Exec("DELETE FROM genres WHERE id = $1", genreID)
 	if err != nil {
 		log.Printf("Error deleting genre from database: %v", err)

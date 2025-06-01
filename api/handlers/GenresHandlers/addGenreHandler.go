@@ -49,7 +49,6 @@ func AddGenreHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Проверяем, существует ли жанр с таким именем
 	row := db.DB.QueryRow("SELECT COUNT(*) FROM genres WHERE name = $1", genre.Name)
 	var count int
 	if err := row.Scan(&count); err != nil {
@@ -63,7 +62,6 @@ func AddGenreHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Добавляем жанр в базу данных
 	_, err = db.DB.Exec("INSERT INTO genres (name) VALUES ($1)", genre.Name)
 	if err != nil {
 		log.Printf("Error saving genre to database: %v", err)

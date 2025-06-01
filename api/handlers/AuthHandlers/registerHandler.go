@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"octolib/api/models"
 	"octolib/db"
+	"regexp"
 )
 
 func RegisterHandler(w http.ResponseWriter, r *http.Request) {
@@ -17,6 +18,32 @@ func RegisterHandler(w http.ResponseWriter, r *http.Request) {
 	var user models.User
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
 		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	// Проверка на пустые поля
+	if user.Username == "" || user.Password == "" {
+		http.Error(w, "Username and password cannot be empty", http.StatusBadRequest)
+		return
+	}
+
+	// Проверка длины пароля
+	if len(user.Password) < 8 {
+		http.Error(w, "Password must be at least 8 characters long", http.StatusBadRequest)
+		return
+	}
+
+	// Проверка формата username
+	usernameRegex := regexp.MustCompile(`^[a-zA-Z0-9]+$`)
+	if !usernameRegex.MatchString(user.Username) {
+		http.Error(w, "Username can only contain English letters and numbers", http.StatusBadRequest)
+		return
+	}
+
+	// Проверка формата пароля
+	passwordRegex := regexp.MustCompile(`^[a-zA-Z0-9._]+$`)
+	if !passwordRegex.MatchString(user.Password) {
+		http.Error(w, "Password can only contain English letters, numbers, dots, and underscores", http.StatusBadRequest)
 		return
 	}
 

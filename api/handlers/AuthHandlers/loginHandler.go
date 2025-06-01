@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"octolib/api/services"
 	"octolib/db"
+	"regexp"
 	"time"
 )
 
@@ -22,6 +23,19 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	if err := json.NewDecoder(r.Body).Decode(&credentials); err != nil {
 		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	// Проверка на пустые поля
+	if credentials.Username == "" || credentials.Password == "" {
+		http.Error(w, "Username and password cannot be empty", http.StatusBadRequest)
+		return
+	}
+
+	// Проверка формата username
+	usernameRegex := regexp.MustCompile(`^[a-zA-Z0-9]+$`)
+	if !usernameRegex.MatchString(credentials.Username) {
+		http.Error(w, "Username can only contain English letters and numbers", http.StatusBadRequest)
 		return
 	}
 

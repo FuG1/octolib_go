@@ -7,6 +7,7 @@ import (
 	"octolib/api/handlers/AuthorHandlers"
 	"octolib/api/handlers/BooksHandlers"
 	"octolib/api/handlers/GenresHandlers"
+	"octolib/api/handlers/SearchHandlers"
 	customMiddleware "octolib/api/middlewares"
 )
 
@@ -19,7 +20,7 @@ func SetupRoutes() *chi.Mux {
 	// Маршруты без AuthMiddleware
 	r.Post("/api/login", AuthHandlers.LoginHandler)
 	r.Post("/api/register", AuthHandlers.RegisterHandler)
-
+	r.Get("/api/search", SearchHandlers.SearchBookHandler)
 	// Группа маршрутов с AuthMiddleware
 	r.Group(func(r chi.Router) {
 		r.Use(customMiddleware.AuthMiddleware)
